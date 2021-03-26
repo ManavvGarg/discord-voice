@@ -20,11 +20,16 @@ class DiscordVoice {
 		if (!dbUrl) throw new TypeError("A database url was not provided.");
 		if(mongoUrl) throw new TypeError("A database url was already configured.");
 		mongoUrl = dbUrl;
-		return mongoose.connect(dbUrl, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-			useFindAndModify: false
-		});
+		try {
+			await mongoose.connect(dbUrl, {
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				useFindAndModify: false
+			});
+			return console.log(`Connected To voice Database!`)
+		} catch (e) {
+			return console.log(e)
+		}
 	}
 	/**
 	 *
